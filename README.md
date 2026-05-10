@@ -1,4 +1,31 @@
-export default function TarotCardScreen() {
+qimport { useState } from "react";
+
+export default function CardEditor() {
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState(null);
+
+  const handleImageUpload = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  return (
+    <div className="p-4">
+      <input
+        placeholder="Card Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="border p-2 mb-2"
+      />
+
+      <input type="file" onChange={handleImageUpload} />
+
+      <div className="mt-4 border p-4 w-64">
+        {image && <img src={image} alt="card" />}
+        <h2 className="text-center font-bold">{title}</h2>
+      </div>
+    </div>
+  );
+}export default function TarotCardScreen() {
   return (
     <div className="min-h-screen bg-black text-white">
       

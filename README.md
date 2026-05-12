@@ -1,4 +1,63 @@
-import { useState, useEffect } from "react";
+export default function TarotCardScreen() {
+function getDailyCard(deck) {
+  const today = new Date().toDateString(); // "Mon May 13 2026"
+  
+  const saved = JSON.parse(localStorage.getItem("dailyCard"));
+
+  // If already picked today, reuse it
+  if (saved && saved.date === today) {
+    return saved.card;
+  }
+
+  // Otherwise pick a new one
+  const randomCard = deck[Math.floor(Math.random() * deck.length)];
+
+  localStorage.setItem(
+    "dailyCard",
+    JSON.stringify({ date: today, card: randomCard })
+  );
+
+  return randomCard;
+}  return (
+    <div className="min-h-screen bg-black text-white">
+      
+      {/* Header */}
+      <div className="flex justify-between items-center p-4 text-yellow-400">
+        <span>← Today’s Tarot Card</span>
+        <span>⤴</span>
+      </div>
+
+      {/* Card Image */}
+      <div className="flex justify-center mt-4">
+        <img
+          src="/queen-of-wands.jpg"
+          alt="Queen of Wands"
+          className="w-48 rounded-xl shadow-lg"
+        />
+      </div>
+
+      {/* Info Panel */}
+      <div className="m-4 p-4 bg-black/70 rounded-xl">
+        <h2 className="text-yellow-400 text-xl mb-2">
+          Queen of Wands
+        </h2>
+
+        <p className="text-sm leading-relaxed text-gray-200">
+          The Queen of Wands represents confidence, passion, and leadership...
+        </p>
+      </div>
+
+      {/* Bottom Nav */}
+      <div className="fixed bottom-0 w-full flex justify-around p-3 bg-black border-t border-gray-800 text-sm">
+        <span>Readings</span>
+        <span>Meanings</span>
+        <span>Quiz</span>
+        <span>Courses</span>
+        <span>More</span>
+      </div>
+    </div>
+  );
+}import { useState, useEffect } from "react";
 
 export default function CardEditor() {
   const [title, setTitle] = useState("");
